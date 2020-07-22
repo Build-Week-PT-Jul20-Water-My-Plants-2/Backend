@@ -1,8 +1,8 @@
 const db = require("../data/config");
 
-function add(data) {
-  const [newUserId] = await db.insert(data).into("plants")
-  const newUser = await db.first("*").from("plants").where("id", newUserId)
+async function add(data) {
+  const [newUserId] = await db.insert(data).into("users")
+  const newUser = await db.first("*").from("users").where("id", newUserId)
   return newUser
 }
 
@@ -11,7 +11,7 @@ function find() {
 }
 
 function findByFilter(filter) {
-  return db("users").select("id", "username", "phoneNumber").where("username", filter).first();
+  return db("users").select("*").where("username", filter).first();
 }
 
 async function updateUser(changes, id) { // updates user and returns updated user object
@@ -19,12 +19,16 @@ async function updateUser(changes, id) { // updates user and returns updated use
   return await db.first("*").from("users").where("id", id).select("id", "username", "phoneNumber")
 }
 
+function getUsers() { // returns list of users
+  return db("users").select("id", "username", "phoneNumber")
+}
+
 // PLANT CRUD FUNCTIONS BELOW //////////////////////////////////////////////////////////////////////////////////////////////
 
-function getUserPlants(id) { // returns list of plants a user has created
+function getUserPlants(user_id) { // returns list of plants a user has created
   return db("plants")
-        .innerJoin("users_plants as up", "up.plant_id", "plants.id")
-        .where("up.user_id", id)
+        .innerJoin("users as u", "u.id", "plants.user_id")
+        .where("plants.user_id", user_id)
         .select("plants.id as id", "plants.nickname", "plants.species", "plants.h2oFrequency")
 }
 
@@ -59,4 +63,5 @@ module.exports = {
   addPlant,
   updatePlant,
   removePlant,
+  getUsers
 };

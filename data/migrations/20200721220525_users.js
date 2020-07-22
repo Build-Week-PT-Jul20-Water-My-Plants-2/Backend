@@ -10,23 +10,14 @@ exports.up = async function (knex) {
     table.string("nickname").notNull();
     table.string("species").notNull();
     table.string("h2oFrequency").notNull();
-  })
-  .createTable("users_plants", (table) => {
     table.integer("user_id")
-          .unsigned()
-          .notNull()
-          .references("id")
-          .inTable("users")
-          .onUpdate('CASCADE')
-          .onDelete('CASCADE')
-    table.integer("plant_id")
-          .unsigned()
-          .notNull()
-          .references("id")
-          .inTable("plants")
-          .onUpdate('CASCADE')
-          .onDelete('CASCADE')
-  });
+    .unsigned()
+    .notNull()
+    .references("id")
+    .inTable("users")
+    .onUpdate('CASCADE')
+    .onDelete('CASCADE')
+  })
 };
 
 exports.down = async function (knex) {

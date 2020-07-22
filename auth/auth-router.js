@@ -63,9 +63,20 @@ router.put("/users/:id", restrict, async (req, res, next) => { // updates user i
       phoneNumber: req.body.phoneNumber,
     }
 
-    const updatedUser = usersModel.updateUser(payload, req.params.id)
+    const updatedUser = await usersModel.updateUser(payload, req.params.id)
 
     res.status(200).json(updatedUser)
+
+  } catch(err) {
+    next(err)
+  }
+})
+
+router.get("/users", async (req, res, next) => { // returns list of users
+  try {
+    const users = await usersModel.getUsers()
+
+    res.status(200).json(users)
 
   } catch(err) {
     next(err)
@@ -87,6 +98,7 @@ router.get("/plants/:id", restrict, async (req, res, next) => { // returns list 
 
 router.post("/plants", restrict, async (req, res, next) => { // creates new plant and returns newly created plant
   try {
+
     const newplant = await usersModel.addPlant(req.body)
 
     res.status(201).json(newplant)
