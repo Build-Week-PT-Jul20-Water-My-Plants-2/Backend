@@ -1,7 +1,7 @@
 const db = require("../data/config");
 
 async function add(data) {
-  const [newUserId] = await db.insert(data).into("users")
+  const [newUserId] = await db.insert(data, 'id').into("users")
   const newUser = await db.first("*").from("users").where("id", newUserId)
   return newUser
 }
@@ -33,7 +33,7 @@ function getUserPlants(user_id) { // returns list of plants a user has created
 }
 
 async function addPlant(object) { // adds new plant to database and returns newly created plant object
-  const [newPlantId] = await db.insert(object).into("plants")
+  const [newPlantId] = await db.insert(object, 'id').into("plants")
   const newPlant = await db.first("*").from("plants").where("id", newPlantId)
   return newPlant
 }
