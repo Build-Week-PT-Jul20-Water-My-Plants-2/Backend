@@ -1,7 +1,9 @@
 const db = require("../data/config");
 
 function add(data) {
-  return db("users").insert(data);
+  const [newUserId] = await db.insert(data).into("plants")
+  const newUser = await db.first("*").from("plants").where("id", newUserId)
+  return newUser
 }
 
 function find() {
