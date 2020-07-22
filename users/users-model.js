@@ -9,7 +9,10 @@ function find() {
 }
 
 function findByFilter(filter) {
-  return db("users").select("id", "username").where("username", filter).first();
+  return db("users")
+    .select("id", "username", "password")
+    .where("username", filter)
+    .first();
 }
 
 module.exports = {
