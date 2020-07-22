@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for Water My Plants",
+  "main": "index.js",
+  "scripts": {
+    "test:watch": "jest --watch",
+    "test": "jest",
+    "start:watch": "nodemon -r dotenv/config index.js",
+    "start": "node -r dotenv/config index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-Week-PT-Jul20-Water-My-Plants-2/Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-Week-PT-Jul20-Water-My-Plants-2/Backend/issues"
+  },
+  "homepage": "https://github.com/Build-Week-PT-Jul20-Water-My-Plants-2/Backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.2",
+    "sqlite3": "^5.0.0",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
