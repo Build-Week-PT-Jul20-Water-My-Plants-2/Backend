@@ -7,6 +7,12 @@ router.post("/register", async (req, res, next) => {
   try {
     const { username, password, phoneNumber } = req.body;
 
+    const user = await usersModel.findByFilter(username)
+
+    if(user) {
+      return res.status(401).json({ message: "Username already exists!" })
+    }
+
     const bodyData = {
       username: username,
       password: await bcrypt.hash(password, 10), // change time complexity if it takes to long to use this endpoint
