@@ -23,7 +23,7 @@
 `https://watermyplants1.herokuapp.com/api/auth/login`  
 * logs in and returns a welcome message along with json web token
 * your request body must include **username** and **password**
-* NOTE THE PASSWORD FOR THE USERS IN THE DATABASE IS 123 **AS A STRING**
+* NOTE THE PASSWORD FOR ALL THE USERS IN THE DATABASE IS 123 **AS A STRING**
 * I will change this so that it returns all of the user information and the plants in an array
 
 <br />
