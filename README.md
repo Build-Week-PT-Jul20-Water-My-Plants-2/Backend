@@ -24,7 +24,7 @@
 * logs in and returns a welcome message along with json web token
 * your request body must include **username** and **password**
 * NOTE THE PASSWORD FOR ALL THE USERS IN THE DATABASE IS 123 **AS A STRING**
-* I will change this so that it returns all of the user information and the plants in an array
+* returns an object containing **message** *("Welcome Jane")*, **token**, **id**, **username**, **phoneNumber**, **plants** *(array containing all plants the user created)*
 
 <br />
 <br />
