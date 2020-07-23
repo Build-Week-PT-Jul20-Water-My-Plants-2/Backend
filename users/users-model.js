@@ -2,7 +2,7 @@ const db = require("../data/config");
 
 async function add(data) {
   const [newUserId] = await db.insert(data, 'id').into("users")
-  const newUser = await db.first("*").from("users").where("id", newUserId)
+  const newUser = await db.first("id", "username", "phoneNumber").from("users").where("id", newUserId)
   return newUser
 }
 
@@ -16,7 +16,7 @@ function findByFilter(filter) {
 
 async function updateUser(changes, id) { // updates user and returns updated user object
   await db("users").update(changes).where("id", id)
-  return await db.first("*").from("users").where("id", id).select("id", "username", "phoneNumber")
+  return await db.first("id", "username", "phoneNumber").from("users").where("id", id).select("id", "username", "phoneNumber")
 }
 
 function getUsers() { // returns list of users
