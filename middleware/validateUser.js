@@ -15,12 +15,6 @@ module.exports = async (req, res, next) => {
         .json({ errorMessage: "Username already exists" });
     }
 
-    if (phoneNumber.length < 9) {
-      return await res
-        .status(404)
-        .json({ errorMessage: "Phone number must be valid" });
-    }
-
     if (!username || !password || !phoneNumber) {
       return await res.status(404).json({
         errorMessage: "Username, password, and phone number can not be empty",
