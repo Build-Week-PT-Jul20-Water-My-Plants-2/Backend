@@ -8,7 +8,7 @@
     "test": "jest",
     "start:watch": "nodemon -r dotenv/config index.js",
     "start": "node index.js",
-    "server": "nodemon --require dotenv/config index.js"
+    "server": "node --require dotenv/config index.js"
   },
   "jest": {
     "testEnvironment": "node"
