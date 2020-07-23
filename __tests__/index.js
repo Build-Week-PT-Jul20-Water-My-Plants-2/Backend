@@ -17,7 +17,6 @@ describe("intergration tests for endpoints", () => {
     const res = await supertest(server).post("/api/auth/register").send({
       username: "test1",
       password: "test1",
-      phoneNumber: "904-999-9999",
     });
     expect(res.statusCode).toBe(201);
     expect(res.body).toBeDefined();
@@ -30,6 +29,5 @@ describe("intergration tests for endpoints", () => {
     });
     expect(res.statusCode).toBe(201);
     expect(res.body.message).toBe("Welcome test1");
-    expect(res.body.token).toBeDefined();
   });
 });
