@@ -45,9 +45,15 @@ router.post("/login", async (req, res, next) => {
       username: user.username,
     }
 
-    res.status(201).json({ 
+    const plants = await usersModel.getUserPlants(user.id) // get all the plants the user has created
+
+    res.status(201).json({ // New response object returns all user info except password. Also returns all plants that the user has.
       message: `Welcome ${user.username}`,
-      token: jwt.sign(payload, process.env.JWT_SECRET)
+      token: jwt.sign(payload, process.env.JWT_SECRET),
+      id: user.id,
+      username: user.username,
+      phoneNumber: user.phoneNumber,
+      plants: plants
     });
 
   } catch (error) {
