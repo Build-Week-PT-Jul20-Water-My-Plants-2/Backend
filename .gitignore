@@ -1,3 +1,5 @@
 .env
 
 data/seeds/00_clean.js
+
+node_modules/
