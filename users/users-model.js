@@ -6,10 +6,6 @@ async function add(data) {
   return newUser;
 }
 
-function find() {
-  return db("users").select("username", "id");
-}
-
 function findByFilter(filter) {
   return db("users").select("*").where("username", filter).first();
 }
@@ -29,10 +25,14 @@ function getUsers() {
   return db("users").select("id", "username", "phoneNumber");
 }
 
+function deleteUser(id) {
+  return db("users").select({ id }).del();
+}
+
 module.exports = {
   add,
-  find,
   findByFilter,
   updateUser,
   getUsers,
+  deleteUser,
 };

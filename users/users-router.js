@@ -7,7 +7,7 @@ router.use("/plants", plantsRouter);
 
 router.get("/", restrict, async (req, res) => {
   try {
-    res.status(200).json(await usersModel.find());
+    res.status(200).json(await usersModel.getUsers());
   } catch (error) {
     next(error);
   }
