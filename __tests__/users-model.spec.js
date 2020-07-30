@@ -10,4 +10,11 @@ describe("users-model unit tests", () => {
     expect(users[1].username).toBe("James");
     expect(users[1].phoneNumber).toBe("222-222-222");
   });
+  it("will return a specific user", async () => {
+    const user = await usersModel.getUserById(1);
+    expect(user).toBeDefined();
+    expect(user.id).toBe(1);
+    expect(user.username).toBe("Jane");
+    console.log(user);
+  });
 });

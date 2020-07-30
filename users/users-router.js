@@ -13,4 +13,14 @@ router.get("/", restrict, async (req, res) => {
   }
 });
 
+router.get("/:id", restrict, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    res.status(200).json(await usersModel.getUserById(id));
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

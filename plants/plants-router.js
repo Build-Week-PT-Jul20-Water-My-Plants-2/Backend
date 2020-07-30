@@ -13,17 +13,6 @@ router.get("/:id", restrict, async (req, res, next) => {
   }
 });
 
-router.get("/:id", restrict, async (req, res, next) => {
-  // returns list of plants for specified user
-  try {
-    const plants = await plantsModel.getUserPlants(req.params.id);
-
-    res.status(200).json(plants);
-  } catch (err) {
-    next(err);
-  }
-});
-
 router.post("/", restrict, async (req, res, next) => {
   // creates new plant and returns newly created plant
   try {

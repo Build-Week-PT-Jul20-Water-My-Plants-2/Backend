@@ -25,6 +25,13 @@ function getUsers() {
   return db("users").select("id", "username", "phoneNumber");
 }
 
+function getUserById(id) {
+  return db("users")
+    .select("id", "username", "phoneNumber")
+    .where({ id })
+    .first();
+}
+
 function deleteUser(id) {
   return db("users").select({ id }).del();
 }
@@ -34,5 +41,6 @@ module.exports = {
   findByFilter,
   updateUser,
   getUsers,
+  getUserById,
   deleteUser,
 };
