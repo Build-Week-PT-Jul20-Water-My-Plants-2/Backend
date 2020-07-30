@@ -10,6 +10,7 @@ server.use(cookieParser());
 server.use("/", welcomeRouter);
 server.use("/api/users", usersRouter);
 server.use("/api/auth", authRouter);
+
 server.use((err, req, res, next) => {
   console.log(err);
   res.status(500).json({

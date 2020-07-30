@@ -8,19 +8,20 @@ router.post("/register", validateUser, async (req, res, next) => {
   try {
     const { username, password, phoneNumber } = req.body;
 
-    const bodyData = {
+    const userData = {
       username: username,
       password: await bcrypt.hash(password, 10),
       phoneNumber: phoneNumber,
     };
 
-    const newUser = await usersModel.add(bodyData);
+    const newUser = await usersModel.add(userData);
 
     res.status(201).json(newUser);
   } catch (error) {
     next(error);
   }
 });
+
 router.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
