@@ -23,4 +23,26 @@ router.get("/:id", restrict, async (req, res, next) => {
   }
 });
 
+router.put("/:id", restrict, async (req, res, next) => {
+  try {
+    const updatedUser = await usersModel.updateUser(req.body, req.params.id);
+
+    res.status(201).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/:id", restrict, async (req, res, next) => {
+  try {
+    const deleteUser = await usersModel.deleteUser(req.params.id);
+
+    deleteUser;
+
+    res.status(200).json({ message: "Successfully removed user" });
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;

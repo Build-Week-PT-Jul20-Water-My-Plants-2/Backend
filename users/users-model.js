@@ -33,7 +33,7 @@ function getUserById(id) {
 }
 
 function deleteUser(id) {
-  return db("users").select({ id }).del();
+  return db("users").where("id", id).del();
 }
 
 module.exports = {
