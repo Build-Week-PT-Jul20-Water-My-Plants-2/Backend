@@ -1,5 +1,5 @@
 # Backend
-Backend for Water My Plants  
+Backend for Water My Plants. An app where you can save, edit, browse your plants and other users plants.
 **Endpoints marked as restricted means that you will need to include json webtoken  in your request header**
 
 <br />
