@@ -62,7 +62,9 @@ describe("intergration tests for endpoints", () => {
     expect(res2.body.phoneNumber).toBe("changed");
   });
 
-  // PLANT CRUD TESTS
+  // PLANT CRUD TESTS ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // GET -----------------------
 
   it("POST /api/auth/login & GET /api/auth/plants/:id", async () => { // logs user in and gets token to set authorization header and get all the plants for specified user successfully
     const res1 = await supertest(server).post("/api/auth/login").send({
@@ -74,6 +76,81 @@ describe("intergration tests for endpoints", () => {
 
     expect(res2.statusCode).toBe(200);
     expect(res2.body).toBeDefined();
+  });
+
+  // POST -----------------------
+
+  it("POST /api/auth/login & POST /api/auth/plants", async () => { // logs user in and gets token to set authorization header and create plant for specified user successfully
+    const res1 = await supertest(server).post("/api/auth/login").send({
+      username: "Jane",
+      password: "123"
+    });
+    
+    const res2 = await supertest(server).post("/api/auth/plants")
+    .set("authorization", res1.body.token)
+    .send({
+      nickname: "newname",
+      species: "newspecies",
+      h2oFrequency: "alot",
+      user_id: 1
+    })
+
+    expect(res2.statusCode).toBe(201);
+    expect(res2.body).toMatchObject({
+      id: 10,
+      nickname: "newname",
+      species: "newspecies",
+      h2oFrequency: "alot",
+      user_id: 1
+    });
+  });
+
+  // PUT -----------------------
+
+  it("POST /api/auth/login & PUT /api/auth/plants/:id", async () => { // logs user in and gets token to set authorization header and update plant for specified user successfully
+    const res1 = await supertest(server).post("/api/auth/login").send({
+      username: "Jane",
+      password: "123"
+    });
+    
+    const res2 = await supertest(server).put("/api/auth/plants/1") // :id is the id of the plant
+    .set("authorization", res1.body.token)
+    .send({
+      nickname: "updatedname",
+      species: "updatedspecies",
+      h2oFrequency: "updatedalot",
+      user_id: 1
+    })
+
+    expect(res2.statusCode).toBe(200);
+    expect(res2.body).toMatchObject({
+      id: 1,
+      nickname: "updatedname",
+      species: "updatedspecies",
+      h2oFrequency: "updatedalot",
+      user_id: 1
+    });
+  });
+
+  // DELETE -----------------------
+
+  it("POST /api/auth/login & DELETE /api/auth/plants/:id", async () => { // logs user in and gets token to set authorization header and delete plant for specified user successfully
+    const res1 = await supertest(server).post("/api/auth/login").send({
+      username: "Jane",
+      password: "123"
+    });
+    
+    const res2 = await supertest(server).delete("/api/auth/plants/1") // :id is the id of the plant
+    .set("authorization", res1.body.token)
+
+    expect(res2.statusCode).toBe(200);
+    expect(res2.body).toMatchObject({
+      id: 1,
+      nickname: "Rose",
+      species: "Damask rose",
+      h2oFrequency: "once a week",
+      user_id: 1
+    });
   });
 
 });
