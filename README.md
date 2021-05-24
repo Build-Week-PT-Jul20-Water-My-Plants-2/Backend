@@ -1,6 +1,6 @@
 # Backend
 <br/>
-**(Please note this app is hosted via a free server that sleeps when not in use. It may take a few extra seconds to wake up when you first access the site.)**
+<strong>(Please note this app is hosted via a free server that sleeps when not in use. It may take a few extra seconds to wake up when you first access the site.)</strong>
 <br/>
 Backend for Water My Plants. An app where you can save, edit, browse your plants and other users plants.
 **Endpoints marked as restricted means that you will need to include json webtoken  in your request header**
