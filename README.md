@@ -1,85 +1,212 @@
 # Backend
-<br/>
-<strong>(Please note this app is hosted via a free server that sleeps when not in use. It may take a few extra seconds to wake up when you first access the site.)</strong>
-<br/>
-<br/>
-Backend for Water My Plants. An app where you can save, edit, browse your plants and other users plants.
-**Endpoints marked as restricted means that you will need to include json webtoken  in your request header**
+  
+**(Please note this app is hosted via a free server that sleeps when not in use. It may take a few extra seconds to wake up when you first access the site.)**  
+Backend for Water My Plants. An app where you can save, edit, browse your plants and other users plants. 
+## IMPORTANT
+**Endpoints marked as *Restricted* means that you will need to include json webtoken  in your request header**
 
-<br />
-<br />
+## Get All Users
+**GET** `https://watermyplants1.herokuapp.com/api/auth/users`  
+Returns array of all users.  
+*Example Response:*
+```json
+[
+    {
+        "id": 1,
+        "username": "Mike",
+        "phoneNumber": "444-444-4444"
+    },
+    {
+        "id": 2,
+        "username": "Dan",
+        "phoneNumber": "222"
+    },
+    {
+        "id": 3,
+        "username": "Ann",
+        "phoneNumber": "444-444-4444"
+    }
+]
+```
+  
+  
+## Create New User
+**POST** `https://watermyplants1.herokuapp.com/api/auth/register`  
+Creates a new user.  
+  
+*Request Body:*
+|Name |Type |Required|
+|:---:|:---:|  :---: |
+|username|String|Yes|
+|password|String|Yes|
+|phoneNumber|String|Yes|
 
-*GET*
-`https://watermyplants1.herokuapp.com/api/auth/users`  
-* returns all users in the database
+*Example Response:*
+```json
+{
+    "id": 22,
+    "username": "personguy",
+    "phoneNumber": "111111111"
+}
+```
+  
+  
+## Login
+**POST** `https://watermyplants1.herokuapp.com/api/auth/login`  
+Logs the user in. Returns user info and array of plants.
+  
+*Request Body:*
+|Name |Type |Required|
+|:---:|:---:|  :---: |
+|username|String|Yes|
+|password|String|Yes|
 
-<br />
-<br />
+*Example Response:*
+```json
+{
+    "message": "Welcome Dan",
+    "token": "some token...",
+    "id": 3,
+    "username": "Dan",
+    "phoneNumber": "222",
+    "plants": [
+        {
+            "id": 7,
+            "nickname": "Calla lily",
+            "species": "Zantedeschia",
+            "h2oFrequency": "3 times a week"
+        },
+        {
+            "id": 8,
+            "nickname": "Hyacinth",
+            "species": "Hyacinthus",
+            "h2oFrequency": "every day"
+        },
+        {
+            "id": 9,
+            "nickname": "Camellia",
+            "species": "Camellia",
+            "h2oFrequency": "4 times a week"
+        }
+    ]
+}
+```
+  
+  
+## Update User
+**PUT** `https://watermyplants1.herokuapp.com/api/auth/users/:id`  
+***Restricted***  
+Updates existing user and returns newly updated user. Note -> :id is the id of the user that you want to update.  
+  
+*Request Body:*
+|Name |Type |Required|
+|:---:|:---:|  :---: |
+|username|String|Yes|
+|password|String|Yes|
+|phoneNumber|String|Yes|
 
-*POST*
-`https://watermyplants1.herokuapp.com/api/auth/register`  
-* creates a new user  
-* Your request body must include **username**, **password**, and **phoneNumber**. All of them must be a string. 
-
-<br />
-<br />
-
-*POST*
-`https://watermyplants1.herokuapp.com/api/auth/login`  
-* logs in and returns a welcome message along with json web token
-* your request body must include **username** and **password**
-* NOTE THE PASSWORD FOR THE ALL USERS IN THE DATABASE IS 123 **AS A STRING**
-* I will change this so that it returns all of the user information and the plants in an array
-
-<br />
-<br />
-
-*PUT*
-`https://watermyplants1.herokuapp.com/api/auth/users/:id`
-* *restricted*
-* updates user and returns newly updated user. :id is the id of the user that you want to update
-* Your request body must include **username**, **password**, and **phoneNumber**. All of them must be a string.
-* returns updated user object
-
-<br />
-<br />
-
-*GET*
-`https://watermyplants1.herokuapp.com/api/auth/plants/:id`
-* *restricted*
-* :id is the id of the user
-* returns list of plants for specified user
-
-<br />
-<br />
-
-*POST*
-`https://watermyplants1.herokuapp.com/api/auth/plants`
-* *restricted*
-* Your request body must include **nickname**, **species**, **h2oFrequency**, **user_id**. All of them must be a string except the **user_id**.
-* the **user_id** is an interger and it must be the id of an existing user within the database
-* returns new plant object
-
-<br />
-<br />
-
-*PUT*
-`https://watermyplants1.herokuapp.com/api/auth/plants/:id`
-* *restricted*
-* :id is the id of the plant
-* Your request body must include **nickname**, **species**, **h2oFrequency**, **user_id**. All of them must be a string except the **user_id**.
-* the **user_id** is an interger and it must be the id of an existing user within the database
-* returns updated plant object
-
-<br />
-<br />
-
-
-*DELETE*
-`https://watermyplants1.herokuapp.com/api/auth/plants/:id`
-* *restricted*
-* :id is the id of the plant
-* returns deleted plant object 
-
-<br />
-<br />
+*Example Response:*
+```json
+{
+    "id": 22,
+    "username": "personguy1",
+    "phoneNumber": "111111111"
+}
+```
+  
+  
+## Get All Plants For User
+**GET** `https://watermyplants1.herokuapp.com/api/auth/plants/:id`  
+***Restricted***  
+Returns all plants for the specified user. Note -> :id is the id of the user.  
+  
+*Example Response:*
+```json
+[
+    {
+        "id": 7,
+        "nickname": "Calla lily",
+        "species": "Zantedeschia",
+        "h2oFrequency": "3 times a week"
+    },
+    {
+        "id": 8,
+        "nickname": "Hyacinth",
+        "species": "Hyacinthus",
+        "h2oFrequency": "every day"
+    },
+    {
+        "id": 9,
+        "nickname": "Camellia",
+        "species": "Camellia",
+        "h2oFrequency": "4 times a week"
+    }
+]
+```
+  
+  
+## Create New Plant
+**POST** `https://watermyplants1.herokuapp.com/api/auth/plants`
+***Restricted***  
+Creates a new plant for the specified user. Returns new plant object.  
+  
+*Request Body:*
+|Name |Type |Required|
+|:---:|:---:|  :---: |
+|user_id|number|Yes|
+|nickname|String|Yes|
+|species|String|Yes|
+|h2oFrequency|String|Yes|
+  
+*Example Response:*
+```json
+{
+    "id": 135,
+    "nickname": "newplant test",
+    "species": "new species",
+    "h2oFrequency": "2 times a week",
+    "user_id": 3
+}
+```
+  
+  
+## Update Plant
+**PUT** `https://watermyplants1.herokuapp.com/api/auth/plants/:id`  
+***Restricted***  
+Updates existing plant for the specified user. Note -> :id is the id of the plant. Returns updated plant object.
+  
+*Request Body:*
+|Name |Type |Required|
+|:---:|:---:|  :---: |
+|user_id|number|Yes|
+|nickname|String|Yes|
+|species|String|Yes|
+|h2oFrequency|String|Yes|
+  
+*Example Response:*
+```json
+{
+    "id": 135,
+    "nickname": "newplant test update",
+    "species": "new species update",
+    "h2oFrequency": "2 times a week update",
+    "user_id": 3
+}
+```
+  
+  
+## Delete Plant
+**DELETE** `https://watermyplants1.herokuapp.com/api/auth/plants/:id`
+***Restricted***  
+Deletes Plant. Note -> :id is the id of the plant. Returns deleted plant object.
+  
+*Example Response:*
+```json
+{
+    "id": 135,
+    "nickname": "newplant test update",
+    "species": "new species update",
+    "h2oFrequency": "2 times a week update",
+    "user_id": 3
+}
+```
